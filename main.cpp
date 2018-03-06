@@ -19,7 +19,8 @@ using namespace rtc;
 
 void demo_identity() {
     string comname = "tal-ares";
-    OpenSSLIdentity* identity = (OpenSSLIdentity*)OpenSSLIdentity::GenerateWithExpiration(comname, KeyParams::RSA(2048), 10000);
+    time_t timeOutSecs = 60*60*24*365;
+    OpenSSLIdentity* identity = (OpenSSLIdentity*)OpenSSLIdentity::GenerateWithExpiration(comname, KeyParams::RSA(2048), timeOutSecs);
     if(!identity) {
         cout << "ERROR" << endl;
         return;
