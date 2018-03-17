@@ -13,6 +13,7 @@
 #include "webrtc/base/helpers.h"
 #include "webrtc/base/opensslidentity.h"
 #include "webrtc/base/sslfingerprint.h"
+#include "webrtc/modules/audio_coding/codecs/opus/audio_decoder_opus.h"
 #include <iostream>
 using namespace std;
 using namespace rtc;
