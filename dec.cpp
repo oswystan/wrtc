@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
     AudioDecoderOpus* decoder = new AudioDecoderOpus(2);
     vector<AudioDecoder::ParseResult> rst;
     uint32_t ts = 0;
+    int16_t dec_buf[5760];
 
     size_t len = 0;
     int ret = 0;
@@ -75,8 +76,20 @@ int main(int argc, char *argv[])
         rtc::Buffer buf(count);
         buf.SetData(ptr, count);
         rst = decoder->ParsePayload(std::move(buf), ts);
+        ts += 10;
         cout << rst.size() << endl;
-        cout << ret << endl;
+        if(rst.size() > 0) {
+            memset(dec_buf, 0x00, sizeof(dec_buf));
+            auto frame = std::move(rst[0].frame);
+            auto dec_rst = frame->Decode(rtc::ArrayView<int16_t>(dec_buf, 5760));
+            if(dec_rst) {
+                cout << "samples:" << dec_rst->num_decoded_samples << "; sptype: " << dec_rst->speech_type << endl;
+                if(dec_rst->num_decoded_samples > 0) {
+                    fwrite(dec_buf, 2, dec_rst->num_decoded_samples, fp);
+                }
+            }
+        }
+
         if (ret > 0) {
             fwrite(outbuf, 2, ret, fp);
         }
