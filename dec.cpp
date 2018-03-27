@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    AudioDecoderOpus* decoder = new AudioDecoderOpus(2);
+    AudioDecoderOpus* decoder = new AudioDecoderOpus(1);
     vector<AudioDecoder::ParseResult> rst;
     uint32_t ts = 0;
     int16_t dec_buf[5760];
