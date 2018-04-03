@@ -45,7 +45,8 @@ int main(int argc, char *argv[])
         cout << "usage: " << argv[0] << " <file>" << endl;
         return -1;
     }
-    auto decoder = new AudioDecoderIsac(32000);
+    int sample_rate = 16000;
+    auto decoder = new AudioDecoderIsac(sample_rate);
     size_t len = 0;
     int ret = 0;
     int count = 0;
@@ -68,7 +69,7 @@ int main(int argc, char *argv[])
         //count = ntohl(count);
         cout << count << "==>";
         ptr += 4;
-        ret = decoder->Decode(ptr, count, 32000, len*4, outbuf, &audio_type);
+        ret = decoder->Decode(ptr, count, sample_rate, len*4, outbuf, &audio_type);
         cout << ret <<" " << audio_type << endl;
         if (ret > 0) {
             fwrite(outbuf, 2, ret, fp);
