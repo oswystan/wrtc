@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
         return -1;
     }
     OpusDecInst* decoder = nullptr;
-    WebRtcOpus_DecoderCreate(&decoder, 2);
+    WebRtcOpus_DecoderCreate(&decoder, 1);
     WebRtcOpus_DecoderInit(decoder);
     size_t len = 0;
     int ret = 0;
