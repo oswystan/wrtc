@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     if (buf == (uint8_t*)MAP_FAILED) {
         return -1;
     }
-    FILE* fp = fopen("out.pcm", "wb");
+    FILE* fp = fopen("isac.pcm", "wb");
     int16_t* outbuf = (int16_t*)malloc(len*4);
     if(!outbuf) {
         cout << "fail to alloc buffer" << endl;
