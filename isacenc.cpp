@@ -90,8 +90,9 @@ int main(int argc, char *argv[])
         out_buf.SetSize(0);
         auto info = encoder->Encode(timestamp, input_view.subview(offset, samples), &out_buf);
         if (info.encoded_bytes) {
-            logd("encoded_bytes=%lu", info.encoded_bytes);
+            logd("encoded_bytes=%lu ts=%u", info.encoded_bytes, info.encoded_timestamp);
             encoded_size = info.encoded_bytes;
+            timestamp += 30;
             fwrite(&encoded_size, 1, sizeof(encoded_size), fp);
             fwrite(out_buf.data(), 1, info.encoded_bytes, fp);
         }
